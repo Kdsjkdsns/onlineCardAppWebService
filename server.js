@@ -4,28 +4,6 @@ const mysql = require('mysql2/promise');
 require('dotenv').config();
 const port = 3000;
 
-const cors = require("cors");
-const allowedOrigins = [
-"http://localhost:3000",
-"https://onlinecardapp.onrender.com/"
-];
-app.use(
-cors({
-origin: function (origin, callback) {
-// allow requests with no origin (Postman/server-to-server)
-if (!origin) return callback(null, true);
-if (allowedOrigins.includes(origin)) {
-return callback(null, true);
-}
-return callback(new Error("Not allowed by CORS"));
-},
-methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-allowedHeaders: ["Content-Type", "Authorization"],
-credentials: false,
-})
-);
-
-
 //database config info
 const dbConfig = {
     host: process.env.DB_HOST,
@@ -71,3 +49,24 @@ app.post('/addCard/', async (req, res) => {const {card_name, card_pic} = req.bod
         res.status(500).json({message: 'Server error - could not add card ' + card_name});
     }
 });
+
+const cors = require("cors");
+const allowedOrigins = [
+"http://localhost:3000",
+"https://onlinecardapp.onrender.com/"
+];
+app.use(
+cors({
+origin: function (origin, callback) {
+// allow requests with no origin (Postman/server-to-server)
+if (!origin) return callback(null, true);
+if (allowedOrigins.includes(origin)) {
+return callback(null, true);
+}
+return callback(new Error("Not allowed by CORS"));
+},
+methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+allowedHeaders: ["Content-Type", "Authorization"],
+credentials: false,
+})
+);
