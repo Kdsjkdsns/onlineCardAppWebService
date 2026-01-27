@@ -4,7 +4,7 @@ const mysql = require('mysql2/promise');
 const cors = require('cors');
 require('dotenv').config();
 
-const port = 3000;
+const port = process.env.PORT || 5000;
 
 // database config
 const dbConfig = {
